@@ -80,17 +80,17 @@ variable "ssh-location" {
     type        = string 
 }
 
-#variable "key-pair" {
-#  default     = "asg-kp"
-#  description = "ssh key pair name"
-#  type        = string
-#}
+variable "key-pair" {
+  default     = "ec2-key"
+  description = "ssh key pair name"
+  type        = string
+}
 
-#variable "pem-file" {
-#  default     = "asg-kp.pem"
-#  description = "pem filename"
-#  type        = string
-#}
+variable "pem-file" {
+  default     = "ec2-key.pem"
+  description = "pem filename"
+  type        = string
+}
 
 # EC2 user
 variable "host-username" {
