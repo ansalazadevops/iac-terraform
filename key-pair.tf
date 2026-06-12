@@ -26,7 +26,7 @@ resource "local_sensitive_file" "private_key" {
   content  = tls_private_key.ssh_key.private_key_pem
   filename = "${path.module}/${var.key-file}"
 
-  Change pem file permissions to read/only
+  # Change pem file permissions to read/only
   provisioner "local-exec" {
    command = "chmod 0400 ${var.key-file}"
   }
