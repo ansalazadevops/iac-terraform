@@ -93,7 +93,7 @@ variable "key-file" {
 }
 
 variable "key-path {
-  default     = "~/.ssh/"
+  default     = "./keys"
   description = "ssh key file path"
   type        = string
 }
