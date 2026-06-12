@@ -72,6 +72,12 @@ variable "ec2-instance-name" {
   type        = string
 }
 
+# EC2 user
+variable "host-username" {
+  default     = "ubuntu"
+  description = "AWS EC2 host username"
+  type        = string
+}
 
 # SSH variables
 variable "ssh-location" {
@@ -89,12 +95,5 @@ variable "key-pair" {
 variable "key-file" {
   default     = "ec2-key.pem"
   description = "pem filename"
-  type        = string
-}
-
-# EC2 user
-variable "host-username" {
-  default     = "ubuntu"
-  description = "AWS EC2 host username"
   type        = string
 }
