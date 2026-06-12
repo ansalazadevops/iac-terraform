@@ -10,8 +10,8 @@ resource "aws_instance" "app-instance-1" {
 
     # Security group
     vpc_security_group_ids = ["${aws_security_group.http-security-group.id}", "${aws_security_group.ssh-security-group.id}"]
-
-    key_name          = "${var.key-file}"
+    
+    key_name          = "${var.key-pair}"
 
     root_block_device {
         volume_size = 30 
