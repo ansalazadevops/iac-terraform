@@ -1,4 +1,15 @@
 
+#  import mapping
+import {
+  to = aws_key_pair.my_existing_key
+  id = "${var.key-pair}"
+}
+
+# Create the target resource shell
+resource "aws_key_pair" "my_existing_key" {
+  key_name = "${var.key-pair}"
+}
+
 # AWS EC2 Instance creation
 # App node 1
 resource "aws_instance" "app-instance-1" {
