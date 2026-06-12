@@ -92,12 +92,6 @@ variable "key-file" {
   type        = string
 }
 
-variable "key-path {
-  default     = "./keys"
-  description = "ssh key file path"
-  type        = string
-}
-
 # EC2 user
 variable "host-username" {
   default     = "ubuntu"
