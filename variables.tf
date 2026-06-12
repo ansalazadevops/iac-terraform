@@ -86,9 +86,15 @@ variable "key-pair" {
   type        = string
 }
 
-variable "pem-file" {
+variable "key-file" {
   default     = "ec2-key.pem"
   description = "pem filename"
+  type        = string
+}
+
+variable "key-path {
+  default     = "~/.ssh/"
+  description = "ssh key file path"
   type        = string
 }
 
