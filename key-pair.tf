@@ -24,7 +24,7 @@ resource "aws_key_pair" "deployer" {
 # Save the private key to your local directory (Restricted Permissions)
 resource "local_sensitive_file" "private_key" {
   content  = tls_private_key.ssh_key.private_key
-  filename = "{var.key-file}"
+  filename = "./keys/{var.key-file}"
 
   # Change pem file permissions to read/only
   # provisioner "local-exec" {
