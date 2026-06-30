@@ -10,7 +10,7 @@ variable "owner" {
 }
 
 variable "project" {
-  default = "cd-project"
+  default = "cicd-project"
   type = string
 }
 
