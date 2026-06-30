@@ -8,6 +8,15 @@ pipeline {
  
     stages {
 
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[credentialsId: 'ansalazadevops-auth-token',
+                    url: 'https://github.com/ansalazadevops/iac-terraform.git']]
+                ])
+            }
+        }
         stage('destroy') {
             steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
@@ -16,8 +25,8 @@ pipeline {
                     dir('aws/ec2') {
                         sh '''
                         terraform init -input=false
-                        terraform plan
-                        terraform destroy --auto-approve
+                        terraform plan -destroy
+                        terraform destroy -auto-approve
                         '''
                     }
                 }
