@@ -15,7 +15,7 @@ pipeline {
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     dir('aws/ec2') {
                         sh '''
-                        terraform init
+                        terraform init -input=false
                         terraform plan
                         terraform destroy --auto-approve
                         '''

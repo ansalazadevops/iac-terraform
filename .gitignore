@@ -1,5 +1,8 @@
 .env
 .vscode
+.terraform/
+*.tfstate
+*.tfstate.*
 backup/
 design/
 docs/
