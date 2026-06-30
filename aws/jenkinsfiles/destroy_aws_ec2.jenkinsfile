@@ -5,7 +5,6 @@ pipeline {
     environment {
         AWS_DEFAULT_REGION='us-east-1'
     }
-
  
     stages {
 
@@ -14,10 +13,15 @@ pipeline {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
                 credentialsId: 'ansalaza_aws_app_user', 
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh 'terraform destroy --auto-approve'
+                    dir('aws/ec2') {
+                        sh '''
+                        terraform init
+                        terraform plan
+                        terraform destroy --auto-approve
+                        '''
+                    }
                 }
             }
         }
-
     }
 }

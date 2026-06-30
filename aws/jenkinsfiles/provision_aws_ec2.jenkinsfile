@@ -3,16 +3,16 @@ pipeline {
     agent any
 
     environment {
-        AWS_DEFAULT_REGION='us-east-1'
+        AWS_DEFAULT_REGION = 'us-east-1'
     }
 
     stages {
 
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', 
-                    branches: [[name: '*/main']], 
-                    userRemoteConfigs: [[credentialsId: 'ansalazadevops-auth-token', 
+                checkout([$class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[credentialsId: 'ansalazadevops-auth-token',
                     url: 'https://github.com/ansalazadevops/iac-terraform.git']]
                 ])
             }
@@ -21,30 +21,33 @@ pipeline {
         stage('Init') {
             steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                credentialsId: 'ansalaza_aws_app_user', 
+                credentialsId: 'ansalaza_aws_app_user',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh 'terraform init'
+                    dir('aws/ec2') {
+                        sh 'terraform init'
+                    }
                 }
             }
         }
 
         stage('Validate') {
             steps {
-                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                credentialsId: 'ansalaza_aws_app_user', 
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                credentialsId: 'ansalaza_aws_app_user',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh 'terraform validate'
+                    dir('aws/ec2') {
+                        sh 'terraform validate'
+                    }
                 }
             }
         }
 
         stage('Apply') {
             steps {
-                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                credentialsId: 'ansalaza_aws_app_user', 
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                credentialsId: 'ansalaza_aws_app_user',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     dir('aws/ec2') {
-                        sh 'terraform init'
                         sh 'terraform apply -auto-approve'
                     }
                 }
@@ -53,11 +56,15 @@ pipeline {
 
         stage('Output') {
             steps {
-                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                credentialsId: 'ansalaza_aws_app_user', 
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                credentialsId: 'ansalaza_aws_app_user',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh 'terraform state list '
-                    sh 'terraform show'
+                    dir('aws/ec2') {
+                        sh '''
+                        terraform state list
+                        terraform show
+                        '''
+                    }
                 }
             }
         }
