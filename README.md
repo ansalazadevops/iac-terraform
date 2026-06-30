@@ -1,11 +1,3 @@
-# DevOps CD project 
+# IAC-Terraform
 
-The goal of this project is to use Continuos Delivery (CD) tools to deploy an EC2 instance on AWS infrastructure.
-
-## Architecture diagram
-
-![image](design/ec2_instance_diagram.jpg)
-
-<!-- To submit your changes
-git add . && git commit -m 'CD Project: Terraform' && git push origin main
---> 
+This repository aims to demonstrate, as a proof of concept, some DevOps practices and tools for automating the provisioning of infrastructure and applications.
