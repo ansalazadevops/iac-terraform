@@ -67,7 +67,7 @@ variable "instance-type-medium" {
 }
 
 variable "ec2-instance-name" {
-  default     = "cdp-jenkins-ec2-instance-1"
+  default     = "cicd-jenkins-ec2-instance-1"
   description = "AWS EC2 Instance Name"
   type        = string
 }

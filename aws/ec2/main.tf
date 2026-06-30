@@ -106,7 +106,7 @@ resource "aws_security_group" "ssh-security-group" {
 
 # AWS EC2 Instance creation
 # App node 1
-resource "aws_instance" "app-instance-1" {
+resource "aws_instance" "cicd-instance-1" {
     ami               = "${var.ami-medium}"
     instance_type     = "${var.instance-type-medium}"
 

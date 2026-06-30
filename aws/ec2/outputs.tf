@@ -23,7 +23,7 @@ output "aws_route_table_association" {
   value = aws_route_table_association.public-subnet-1-route-table-association.id
 }
 
-# ec2 instance public ip
+# ec2 instance
 output "aws_instance" {
-  value = aws_instance.app-instance-1.public_ip
+  value = aws_instance.cicd-instance-1.id
 }
