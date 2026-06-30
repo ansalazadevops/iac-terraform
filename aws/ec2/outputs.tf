@@ -23,16 +23,6 @@ output "aws_route_table_association" {
   value = aws_route_table_association.public-subnet-1-route-table-association.id
 }
 
-# http security group
-output "aws_security_group" {
-  value = aws_security_group.http-security-group.id
-}
-
-# ssh security group
-output "aws_security_group" {
-  value = aws_security_group.ssh-security-group.id
-}
-
 # ec2 instance public ip
 output "aws_instance" {
   value = aws_instance.app-instance-1.public_ip

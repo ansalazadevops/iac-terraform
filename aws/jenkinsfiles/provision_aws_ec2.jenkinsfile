@@ -8,15 +8,17 @@ pipeline {
 
     stages {
 
-        stage('checkout') {
+
+        stage('Checkout') {
             steps {
-                git url: 'https://github.com/ansalazadevops/iac-terraform/aws/ec2',
-                    credentialsId: 'ansalazadevops-github-token-auth',
-                    branch: 'main'
+                checkout([$class: 'GitSCM', 
+                    branches: [[name: '*/main']], 
+                    userRemoteConfigs: [[credentialsId: 'ansalazadevops', url: 'https://github.com/ansalazadevops/iac-terraform.git']]
+                ])
             }
         }
 
-        stage('init') {
+        stage('Init') {
             steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'ansalaza_aws_app_user', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh 'terraform init'
@@ -24,7 +26,7 @@ pipeline {
             }
         }
 
-        stage('validate') {
+        stage('Validate') {
             steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'ansalaza_aws_app_user', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh 'terraform validate'
@@ -32,16 +34,18 @@ pipeline {
             }
         }
 
-        stage('provision') {
+        stage('Apply') {
             steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'ansalaza_aws_app_user', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh 'terraform plan'
-                    sh 'terraform apply --auto-approve'
+                    dir('aws/ec2') {
+                        sh 'terraform init'
+                        sh 'terraform apply -auto-approve'
+                    }
                 }
             }
         }
 
-        stage('output') {
+        stage('Output') {
             steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'ansalaza_aws_app_user', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh 'terraform state list '
