@@ -1,6 +1,6 @@
-# DevOps CI/CD project 
+# Provisioning an EC2 instance using CI/CD 
 
-This project is a demo about provisioning an EC2 instance (VM) on AWS platform.
+This project is a demo of provisioning an EC2 instance (VM) on the AWS platform using a Jenkins Pipeline and Terraform.
 
 ## Architecture diagram
 
