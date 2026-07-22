@@ -25,5 +25,5 @@ output "aws_route_table_association" {
 
 # ec2 instance
 output "aws_instance" {
-  value = aws_instance.cicd-instance-1.id
+  value = aws_instance.ec2-instance-1.id
 }
