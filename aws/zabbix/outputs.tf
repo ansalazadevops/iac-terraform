@@ -31,7 +31,7 @@ output "aws_route_table_associations" {
 # -------------------------------------
 output "aws_instance" {
   value = [ 
-    aws_instance.ec2-instance-1.id,
-    aws_instance.ec2-instance-1.public_ip
+    aws_instance.zabbix.id,
+    aws_instance.zabbix.public_ip
   ]
 }
