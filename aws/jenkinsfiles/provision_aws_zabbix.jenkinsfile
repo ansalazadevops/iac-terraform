@@ -23,7 +23,7 @@ pipeline {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                 credentialsId: 'ansalaza_aws_app_user',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    dir('aws/eks') {
+                    dir('aws/zabbix') {
                         sh 'terraform init -input=false'
                     }
                 }
@@ -35,7 +35,7 @@ pipeline {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                 credentialsId: 'ansalaza_aws_app_user',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    dir('aws/eks') {
+                    dir('aws/zabbix') {
                         sh 'terraform validate'
                     }
                 }
@@ -47,8 +47,8 @@ pipeline {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                 credentialsId: 'ansalaza_aws_app_user',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    dir('aws/eks') {
-                        sh 'terraform apply -refresh=false -parallelism=30 -auto-approve'
+                    dir('aws/zabbix') {
+                        sh 'terraform apply -refresh=false -parallelism=30-auto-approve'
                     }
                 }
             }
@@ -59,7 +59,7 @@ pipeline {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                 credentialsId: 'ansalaza_aws_app_user',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    dir('aws/eks') {
+                    dir('aws/zabbix') {
                         sh '''
                         terraform state list
                         terraform show

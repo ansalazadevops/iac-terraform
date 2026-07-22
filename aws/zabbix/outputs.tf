@@ -26,21 +26,6 @@ output "aws_route_table_associations" {
   value = aws_route_table_association.rt_association.id
 }
 
-# Security Group
-output "aws_security_group" {
-  value = [
-    aws_security_group.zabbix_sg.id,
-    aws_security_group.zabbix_sg.name,
-    aws_security_group.zabbix_sg.ingress[0].from_port,
-    aws_security_group.zabbix_sg.ingress[0].to_port,
-    aws_security_group.zabbix_sg.ingress[0].protocol,
-    aws_security_group.zabbix_sg.ingress[1].from_port,
-    aws_security_group.zabbix_sg.ingress[1].to_port,
-    aws_security_group.zabbix_sg.ingress[1].protocol,
-    aws_security_group.zabbix_sg.egress.cidr_blocks
-  ]
-}
-
 # -------------------------------------
 # EC2 Instance Outputs
 # -------------------------------------

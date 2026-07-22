@@ -48,7 +48,7 @@ pipeline {
                 credentialsId: 'ansalaza_aws_app_user',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     dir('aws/ec2') {
-                        sh 'terraform apply -auto-approve'
+                        sh 'terraform apply -refresh=false -parallelism=30 -auto-approve'
                     }
                 }
             }
@@ -70,5 +70,9 @@ pipeline {
         }
     }
 
-    post { always { cleanWs() } }
+    post {
+        always {
+            deleteDir() /* Deletes the contents of the current workspace */
+        }
+    }
 }

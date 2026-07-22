@@ -1,0 +1,36 @@
+pipeline {
+
+    agent any
+
+    environment {
+        AWS_DEFAULT_REGION='us-east-1'
+    }
+ 
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[credentialsId: 'ansalazadevops-auth-token',
+                    url: 'https://github.com/ansalazadevops/iac-terraform.git']]
+                ])
+            }
+        }
+        stage('destroy') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                credentialsId: 'ansalaza_aws_app_user', 
+                secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    dir('aws/zabbix') {
+                        sh '''
+                        terraform init -input=false
+                        terraform plan -destroy
+                        terraform destroy -auto-approve
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}
