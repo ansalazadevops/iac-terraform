@@ -10,7 +10,7 @@ variable "owner" {
 }
 
 variable "project" {
-  default = "cicd-project"
+  default = "ec2-project"
   type = string
 }
 
@@ -67,7 +67,7 @@ variable "instance-type-medium" {
 }
 
 variable "ec2-instance-name" {
-  default     = "cicd-jenkins-ec2-instance-1"
+  default     = "ec2-jenkins-ec2-instance-1"
   description = "AWS EC2 Instance Name"
   type        = string
 }

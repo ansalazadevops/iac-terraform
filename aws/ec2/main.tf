@@ -5,16 +5,7 @@ resource "aws_vpc" "vpc" {
     enable_dns_hostnames = true
     
     tags = {
-        Name = "cicd-vpc"
-    }
-}
-
-# Create Internet Gateway and attach it to the VPC
-resource "aws_internet_gateway" "internet-gateway" {
-    vpc_id  = aws_vpc.vpc.id
-
-    tags = {
-        Name = "cicd-igw"
+        Name = "ec2-vpc"
     }
 }
 
@@ -26,8 +17,17 @@ resource "aws_subnet" "public-subnet-1" {
     map_public_ip_on_launch = true
 
     tags = {
-        Name = "cicd-public-subnet-1"
+        Name = "ec2-public-subnet-1"
     }    
+}
+
+# Create Internet Gateway and attach it to the VPC
+resource "aws_internet_gateway" "internet-gateway" {
+    vpc_id  = aws_vpc.vpc.id
+
+    tags = {
+        Name = "ec2-igw"
+    }
 }
 
 # Create Route Table and add Public Route
@@ -40,7 +40,7 @@ resource "aws_route_table" "public-route-table" {
     }
 
     tags = {
-        Name = "cicd-public-rtb"
+        Name = "ec2-public-rtb"
     }
 }
 
@@ -73,7 +73,7 @@ resource "aws_security_group" "http-security-group" {
   }
 
   tags   = {
-    Name = "cicd-http-sg"
+    Name = "ec2-http-sg"
   }
 }
 
@@ -99,14 +99,14 @@ resource "aws_security_group" "ssh-security-group" {
   }
 
   tags   = {
-    Name = "cicd-ssh-sg"
+    Name = "ec2-ssh-sg"
   }
 }
 
 
 # AWS EC2 Instance creation
 # App node 1
-resource "aws_instance" "cicd-instance-1" {
+resource "aws_instance" "ec2-instance-1" {
     ami               = "${var.ami-medium}"
     instance_type     = "${var.instance-type-medium}"
 
