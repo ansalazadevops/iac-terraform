@@ -109,13 +109,8 @@ resource "aws_security_group" "ssh-security-group" {
 resource "aws_instance" "ec2-instance-1" {
     ami               = "${var.ami-medium}"
     instance_type     = "${var.instance-type-medium}"
-
-    # Attach Instance to Private Subnet 1
-    subnet_id = aws_subnet.public-subnet-1.id
-
-    # Security group
+    subnet_id         = aws_subnet.public-subnet-1.id
     vpc_security_group_ids = ["${aws_security_group.http-security-group.id}", "${aws_security_group.ssh-security-group.id}"]
-    
     key_name          = "${var.key-pair}"
 
     root_block_device {
