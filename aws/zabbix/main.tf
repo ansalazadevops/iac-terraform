@@ -37,6 +37,15 @@ resource "aws_security_group" "zabbix_sg" {
   vpc_id = aws_vpc.zabbix_vpc.id
 
   ingress {
+    description      = "SSH Access"
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  
+  ingress {
+    description = "HTTP Access"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -44,6 +53,7 @@ resource "aws_security_group" "zabbix_sg" {
   }
 
   ingress {
+    description = "Zabbix Server Access"
     from_port   = 10051
     to_port     = 10051
     protocol    = "tcp"

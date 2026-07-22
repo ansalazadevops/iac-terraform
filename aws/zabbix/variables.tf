@@ -133,12 +133,6 @@ variable "host-username" {
 }
 
 # SSH variables
-variable "ssh-location" {
-    default     = "0.0.0.0/0"
-    description = "IP Address Tha Can SSH Into the EC2 Instance"
-    type        = string 
-}
-
 variable "key-pair" {
   default     = "ec2-key"
   description = "ssh key pair name"
